@@ -49,42 +49,47 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: Drawer(
-        backgroundColor: Color(0xff262626),
+        elevation: 20,
+        shadowColor: Colors.grey,
+        backgroundColor: const Color(0xff262626),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(height: 30,),
-            DrawerHeader(child: Image.asset('lib/image/Logo.png',
-            color: Colors.white,
-            width: 200,)),
-
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25),
-              child: Divider(
-                height: 20,
-                thickness: 5,
-                color: Color(0x5a3a3a3a),
-              ),
+            Column(
+              children: [
+                const SizedBox(height: 30,),
+                DrawerHeader(child: Image.asset('lib/image/Logo.png',
+                  color: Colors.white,
+                  width: 200,)),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: Divider(
+                    height: 5,
+                    thickness: 5,
+                    color: Color(0x5a3a3a3a),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: ListTile(
+                    leading: Icon(Icons.home, color: Colors.white,),
+                    title: Text('Home', style: TextStyle(color: Colors.white),),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: ListTile(
+                    leading: Icon(Icons.info_outline, color: Colors.white,),
+                    title: Text('About', style: TextStyle(color: Colors.white),),
+                  ),
+                ),
+              ],
             ),
-
-             const Padding(
-               padding: EdgeInsets.only(left: 20),
-               child: ListTile(
-                leading: Icon(Icons.home, color: Colors.white,),
-                 title: Text('Home', style: TextStyle(color: Colors.white),),
-            ),
-             ),
             const Padding(
               padding: EdgeInsets.only(left: 20),
               child: ListTile(
-                leading: Icon(Icons.home, color: Colors.white,),
-                title: Text('Home', style: TextStyle(color: Colors.white),),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: ListTile(
-                leading: Icon(Icons.home, color: Colors.white,),
-                title: Text('Home', style: TextStyle(color: Colors.white),),
+                leading: Icon(Icons.logout, color: Colors.white,),
+                title: Text('Sign Out', style: TextStyle(color: Colors.white),),
               ),
             )
           ],

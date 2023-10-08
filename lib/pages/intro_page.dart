@@ -20,14 +20,17 @@ class IntroPage extends StatelessWidget{
                 fontWeight:FontWeight.bold,
                 fontSize: 20,
               ),),
-            const Text('Brand new sneakers and custom '
-                'kicks made with premium quality',
-              style: TextStyle(
-                fontWeight:FontWeight.normal,
-                fontSize: 15,
-                color: Colors.blueGrey
-              ),
-            textAlign: TextAlign.center,),
+            Container(
+              margin: const EdgeInsets.only(top: 8),
+              child: const Text('Brand new sneakers and custom '
+                  'kicks made with premium quality',
+                style: TextStyle(
+                  fontWeight:FontWeight.normal,
+                  fontSize: 15,
+                  color: Color(0xff525252)
+                ),
+              textAlign: TextAlign.center,),
+            ),
             const SizedBox(height: 40,),
             ElevatedButton(
                 onPressed: (){
