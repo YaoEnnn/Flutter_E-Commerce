@@ -2,6 +2,9 @@ import 'package:e_commerce/components/shoe_tile.dart';
 import 'package:e_commerce/models/shoe.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/cart.dart';
 
 
 class ShopPage extends StatelessWidget{
@@ -9,23 +12,32 @@ class ShopPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+
+    void addShoeToCart(Shoe shoe){
+      Provider.of<Cart>(context, listen: false).addShoeToCart(shoe);
+      showDialog(context: context, builder: (context) => const AlertDialog(
+        title: Text('Successfully Added!'),
+        content: Text('Check your cart'),
+      ));
+    }
+
+    return Consumer<Cart>(builder: (context, value, child) => Column(
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Container(
             height: 50,
             decoration: BoxDecoration(
-              color: CupertinoColors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black26,
-                  spreadRadius: 1,
-                  blurRadius: 15,
-                  offset: Offset(0, 5)
-                )
-              ]
+                color: CupertinoColors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: const [
+                  BoxShadow(
+                      color: Colors.black26,
+                      spreadRadius: 1,
+                      blurRadius: 15,
+                      offset: Offset(0, 5)
+                  )
+                ]
             ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,17 +45,17 @@ class ShopPage extends StatelessWidget{
                 Padding(
                   padding: EdgeInsets.only(left: 15),
                   child: Text('Search',
-                   style: TextStyle(
-                     fontSize: 16,
-                     color: Colors.grey
-                   ),),
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey
+                    ),),
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: 15),
                   child: Icon(
-                      Icons.search,
+                    Icons.search,
                     color: Colors.grey,
-                  size: 30,),
+                    size: 30,),
                 ),
               ],
             ),
@@ -56,7 +68,7 @@ class ShopPage extends StatelessWidget{
               color: Color(0xffa1a1a1),
               fontWeight: FontWeight.w600,
               fontSize: 15,
-          ),),
+            ),),
         ),
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,18 +85,20 @@ class ShopPage extends StatelessWidget{
             Padding(
               padding: EdgeInsets.only(right: 30),
               child: Text('See all',
-                  style: TextStyle(
+                style: TextStyle(
                     color: Colors.blue,
                     fontSize: 15,
                     fontWeight: FontWeight.w700
-                  ),),
+                ),),
             )
           ],
         ),
         Expanded(
           child: ListView.builder(itemBuilder: (context, index){
-            Shoe shoe = Shoe(name: 'Kyrie 4', description: 'Cool Shoe', price: 240, imagePath: 'lib/image/Shoes1.png');
-            return ShoeTile(shoe: shoe);
+            Shoe shoe = value.getShoeList()[index];
+            return ShoeTile(
+                shoe: shoe,
+                onTap: () => addShoeToCart(shoe));
           },
             itemCount: 4,
             scrollDirection: Axis.horizontal,
@@ -98,6 +112,6 @@ class ShopPage extends StatelessWidget{
             thickness: 2,),
         )
       ],
-    );
+    ), );
   }
 }

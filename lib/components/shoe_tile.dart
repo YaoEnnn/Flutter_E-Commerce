@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 class ShoeTile extends StatelessWidget {
   Shoe shoe;
 
-  ShoeTile({super.key, required this.shoe});
+  ShoeTile({super.key, required this.shoe, required this.onTap});
+
+  void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +22,19 @@ class ShoeTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(shoe.imagePath),
+          ClipRect(child: Image.asset(shoe.imagePath,
+          fit: BoxFit.cover,
+          height: 250,)),
           const SizedBox(height: 10,),
-          Center(
-            child: Text(
-              shoe.description,
-              style: const TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Center(
+              child: Text(
+                shoe.description,
+                style: const TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
           Padding(
@@ -54,16 +61,19 @@ class ShoeTile extends StatelessWidget {
                     ),),
                   ],
                 ),
-                Container(
-                  padding: const EdgeInsets.all(22),
-                  decoration: const BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          bottomRight: Radius.circular(12))),
-                  child: const Icon(
-                    Icons.add,
-                    color: Colors.white,
+                GestureDetector(
+                  onTap: onTap,
+                  child: Container(
+                    padding: const EdgeInsets.all(22),
+                    decoration: const BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(12),
+                            bottomRight: Radius.circular(12))),
+                    child: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
                   ),
                 )
               ],
